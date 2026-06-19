@@ -7,5 +7,8 @@ def http_test(request):
 def json_test(request):
     return JsonResponse({'objective': 'test', 'damn': True})
 
-def home_page(request):
-    return HttpResponse("welcome home")
+def home_view(request):
+    return render(request, 'app1/home.html')
+
+def about_view(request):
+    return render(request, 'app1/about.html')
