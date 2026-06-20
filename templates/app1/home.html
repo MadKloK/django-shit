@@ -1,10 +1,12 @@
-<!doctype html>
+{% load static %}
+
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>home</title>
-    <link href="static/home.css" rel="stylesheet">
-  </head>
-  <h1>damn home</h1>
+<head>
+  <title>home</title>
+    <link rel="stylesheet" href="{% static 'app1/css/home.css' %}">
+</head>
+<body>
+  <h1>Home page</h1>
+</body>
 </html>
