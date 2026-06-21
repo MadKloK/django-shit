@@ -15,3 +15,6 @@ def about_view(request):
 
 def contact_view(request):
     return render(request, "app1/contact.html")
+
+def elements_view(request):
+    return render(request, "app1/elements.html")
