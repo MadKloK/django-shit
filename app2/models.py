@@ -15,5 +15,10 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField(null=True)
 
+    class Meta:
+        ordering = ['created_at']
+        # verbose_name = 'pppost'
+        # verbose_name_plural = 'postssss'
+
     def __str__(self):
         return f"{self.id}. {self.title}"
