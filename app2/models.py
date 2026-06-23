@@ -14,3 +14,6 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return f"{self.id}. {self.title}"
