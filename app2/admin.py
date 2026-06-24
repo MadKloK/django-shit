@@ -12,4 +12,3 @@ class App2Admin(admin.ModelAdmin):
     list_filter = ['status', 'created_at']
     search_fields = ['title', 'content']
     ordering = ['created_at']
-
