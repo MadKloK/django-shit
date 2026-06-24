@@ -1,11 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-
-def http_test(request):
-    return HttpResponse("hey this is the test")
-
-def json_test(request):
-    return JsonResponse({'objective': 'test', 'damn': True})
+from app2.models import Post
 
 def home_view(request):
     return render(request, 'app1/index.html')
@@ -18,3 +13,8 @@ def contact_view(request):
 
 def elements_view(request):
     return render(request, "app1/elements.html")
+
+def test(request):
+    posts = Post.objects.all()
+    context = {'posts': posts}
+    return render(request, 'app1/test.html', context=context)
