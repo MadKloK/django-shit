@@ -1,8 +1,9 @@
 from django.contrib import admin
-from app2.models import Post
+from app2.models import Post, Category
 
 # Register your models here.
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name']
 
