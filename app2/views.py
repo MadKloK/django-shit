@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.db.models import F
 from django.utils import timezone
 from app2.models import Post
 
@@ -10,11 +11,20 @@ def blog_view(request):
     return render(request, "app2/blog-home.html", context)
 
 def blog_single(request, pid):
-    post = get_object_or_404(Post, id=pid, status=True, published_at__lte=timezone.now())
-    context = {'post': post}
+    posts = Post.objects.filter(published_at__lte=timezone.now(), status=True)
+    post = get_object_or_404(posts, id=pid)
 
-    post.views_count += 1
+    post.views_count = F('views_count') + 1
     post.save()
+
+    previous_post = posts.filter(published_at__lt=post.created_at).order_by('-published_at').first()
+    next_post = posts.filter(published_at__gt=post.created_at).order_by('published_at').first()
+
+    context = {
+        'post': post,
+        'previous_post': previous_post,
+        'next_post': next_post
+        }
 
     return render(request, "app2/blog-single.html", context)
 

@@ -14,19 +14,23 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     image = models.ImageField(upload_to='app2/', default='app2/default.jpg')
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True) # foreign key created indexes by default ! + id creates it too
     # tag
     category = models.ManyToManyField(Category)
     views_count = models.IntegerField(default=0)
     status = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    published_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    updated_at = models.DateTimeField(auto_now=True, db_index=True)
+    published_at = models.DateTimeField(null=True, db_index=True)
 
     class Meta:
         ordering = ['created_at']
         # verbose_name = 'pppost'
         # verbose_name_plural = 'postssss'
+
+        # -----
+        # its good to have a ['published_at', 'status'] index as we query those a lot !
+        # -----
 
     def __str__(self):
         return f"{self.id}. {self.title}"
