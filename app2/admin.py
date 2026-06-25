@@ -3,6 +3,9 @@ from app2.models import Post
 
 # Register your models here.
 
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
 @admin.register(Post)
 class App2Admin(admin.ModelAdmin):
     date_hierarchy = 'published_at'
