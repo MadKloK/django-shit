@@ -10,7 +10,7 @@ def blog_view(request):
     return render(request, "app2/blog-home.html", context)
 
 def blog_single(request, pid):
-    post = get_object_or_404(Post, id=pid)
+    post = get_object_or_404(Post, id=pid, status=True, published_at__lte=timezone.now())
     context = {'post': post}
 
     post.views_count += 1
