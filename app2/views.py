@@ -17,8 +17,8 @@ def blog_single(request, pid):
     post.views_count = F('views_count') + 1
     post.save()
 
-    previous_post = posts.filter(published_at__lt=post.created_at).order_by('-published_at').first()
-    next_post = posts.filter(published_at__gt=post.created_at).order_by('published_at').first()
+    previous_post = posts.filter(published_at__lt=post.published_at).order_by('-published_at').first()
+    next_post = posts.filter(published_at__gt=post.published_at).order_by('published_at').first()
 
     context = {
         'post': post,
