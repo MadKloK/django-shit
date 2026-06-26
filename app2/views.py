@@ -15,7 +15,8 @@ def blog_single(request, pid):
     post = get_object_or_404(posts, id=pid)
 
     post.views_count = F('views_count') + 1
-    post.save()
+    post.save(update_fields=['views_count'])
+    post.refresh_from_db() # this gives a real value not F object, PLUS if you dont update and save another time, it would do the increment twice!!!
 
     previous_post = posts.filter(published_at__lt=post.published_at).order_by('-published_at').first()
     next_post = posts.filter(published_at__gt=post.published_at).order_by('published_at').first()
