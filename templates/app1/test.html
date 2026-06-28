@@ -1,3 +1,5 @@
+{% load blog_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,14 +8,11 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- {% get_posts as posts %}
     {% for post in posts %}
-        {% if post.status == 1 %}
-            <h1>{{ post.title }}</h1>
-            <p>{{ post.content }}</p>
-            <small>{{ post.published_at }}</small>
-        {% else %}
-            <p>{{ post }} is not published yet</p>
-        {% endif %}
-    {% endfor %}
+        <p>{{ post.content|snippet:100 }}</p>
+    {% endfor %} -->
+
+    {% popular_posts %}
 </body>
 </html>

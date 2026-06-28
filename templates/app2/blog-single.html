@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load blog_tags %}
+
 {% block content %}
 
 <!-- start banner Area -->
@@ -34,16 +36,16 @@
 					<div class="col-lg-3  col-md-3 meta-details">
 						<ul class="tags">
 							{% for category_item in post.category.all %}
-								<li>
-									<a href="#">{{ category_item.name }}</a>{% if not forloop.last %}, {% endif %}
-								</li>
+							<li>
+								<a href="#">{{ category_item.name }}</a>{% if not forloop.last %}, {% endif %}
+							</li>
 							{% endfor %}
 						</ul>
 						<div class="user-details row">
 							<p class="user-name col-lg-12 col-md-12 col-6"><a href="#">Mark wiens</a> <span
 									class="lnr lnr-user"></span></p>
-							<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{ post.published_at|date:"d M Y" }}</a> <span
-									class="lnr lnr-calendar-full"></span></p>
+							<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{ post.published_at|date:"d M Y"
+									}}</a> <span class="lnr lnr-calendar-full"></span></p>
 							<p class="view col-lg-12 col-md-12 col-6"><a href="#">{{ post.views_count }} Views</a> <span
 									class="lnr lnr-eye"></span></p>
 							<p class="comments col-lg-12 col-md-12 col-6"><a href="#">06 Comments</a> <span
@@ -66,39 +68,43 @@
 				<div class="navigation-area">
 					<div class="row">
 						{% if previous_post %}
-							<div
-								class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-								<div class="thumb">
-									<a href="{% url 'app2:single' previous_post.id %}"><img class="img-fluid" src="{{ previous_post.image.url }}" alt=""></a>
-								</div>
-								<div class="arrow">
-									<a href="{% url 'app2:single' previous_post.id %}"><span class="lnr text-white lnr-arrow-left"></span></a>
-								</div>
-								<div class="detials">
-									<p>Prev Post</p>
-									<a href="{% url 'app2:single' previous_post.id %}">
-										<h4>{{ previous_post.title }}</h4>
-									</a>
-								</div>
+						<div
+							class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+							<div class="thumb">
+								<a href="{% url 'app2:single' previous_post.id %}"><img class="img-fluid"
+										src="{{ previous_post.image.url }}" alt=""></a>
 							</div>
+							<div class="arrow">
+								<a href="{% url 'app2:single' previous_post.id %}"><span
+										class="lnr text-white lnr-arrow-left"></span></a>
+							</div>
+							<div class="detials">
+								<p>Prev Post</p>
+								<a href="{% url 'app2:single' previous_post.id %}">
+									<h4>{{ previous_post.title }}</h4>
+								</a>
+							</div>
+						</div>
 						{% endif %}
 
 						{% if next_post %}
-							<div
-								class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-								<div class="detials">
-									<p>Next Post</p>
-									<a href="{% url 'app2:single' next_post.id %}">
-										<h4>{{ next_post.title }}</h4>
-									</a>
-								</div>
-								<div class="arrow">
-									<a href="{% url 'app2:single' next_post.id %}"><span class="lnr text-white lnr-arrow-right"></span></a>
-								</div>
-								<div class="thumb">
-									<a href="{% url 'app2:single' next_post.id %}"><img class="img-fluid" src="{{ next_post.image.url }}" alt=""></a>
-								</div>
+						<div
+							class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+							<div class="detials">
+								<p>Next Post</p>
+								<a href="{% url 'app2:single' next_post.id %}">
+									<h4>{{ next_post.title }}</h4>
+								</a>
 							</div>
+							<div class="arrow">
+								<a href="{% url 'app2:single' next_post.id %}"><span
+										class="lnr text-white lnr-arrow-right"></span></a>
+							</div>
+							<div class="thumb">
+								<a href="{% url 'app2:single' next_post.id %}"><img class="img-fluid"
+										src="{{ next_post.image.url }}" alt=""></a>
+							</div>
+						</div>
 						{% endif %}
 					</div>
 				</div>
@@ -232,8 +238,8 @@
 
 					{% include "app2/blog-writer.html" %}
 
-					{% include "app2/blog-popular-posts.html" %}
-					
+					{% latest_posts %}
+
 					{% include "app2/blog-ads.html" %}
 
 					{% include "app2/blog-post-category.html" %}
@@ -241,7 +247,7 @@
 					{% include "app2/blog-newsletter.html" %}
 
 					{% include "app2/blog-tag-cloud.html" %}
-				
+
 				</div>
 			</div>
 		</div>

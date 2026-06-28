@@ -15,6 +15,6 @@ def elements_view(request):
     return render(request, "app1/elements.html")
 
 def test(request):
-    posts = Post.objects.all()
-    context = {'posts': posts}
-    return render(request, 'app1/test.html', context=context)
+#     posts = Post.objects.all()
+#     context = {'posts': posts}
+    return render(request, 'app1/test.html')
