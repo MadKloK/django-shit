@@ -29,11 +29,16 @@ def blog_single(request, pid):
 
     return render(request, "app2/blog-single.html", context)
 
-def test(request, pid):
-    post = get_object_or_404(Post, id=pid)
-    context = {'post': post}
+def blog_category(request, cat_name):
+    posts = Post.objects.filter(status=True, category__name=cat_name)
+    context = {'posts': posts}
+    return render(request, 'app2/blog-home.html', context)
 
-    post.views_count += 1
-    post.save()
+# def test(request, pid):
+#     post = get_object_or_404(Post, id=pid)
+#     context = {'post': post}
 
-    return render(request, 'app1/test.html', context)
+#     post.views_count += 1
+#     post.save()
+
+#     return render(request, 'app1/test.html', context)
