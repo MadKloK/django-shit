@@ -1,19 +1,28 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import F, Q
+from django.core.paginator import Paginator #, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from app2.models import Post
 
 # Create your views here.
 
 def blog_view(request, **kwargs):
-    posts = Post.objects.filter(published_at__lte=timezone.now(), status=True)
+    posts = Post.objects.filter(
+        published_at__lte=timezone.now(), 
+        status=True
+        ).order_by('-published_at')
 
     if kwargs.get('cat_name'):
         posts = posts.filter(category__name=kwargs['cat_name'])
+
     if kwargs.get('author_username'):
         posts = posts.filter(author__username=kwargs['author_username'])
 
-    context = {'posts': posts}
+    paginator = Paginator(posts, 5)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number) # no need for try except, get_page() handles some cases itself
+
+    context = {'page': page} # just passing the page is enough, no need for posts
     return render(request, "app2/blog-home.html", context)
 
 def blog_single(request, pid):
