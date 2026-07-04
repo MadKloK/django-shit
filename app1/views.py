@@ -1,8 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
+# from django.core.paginator import Paginator
 from django.utils import timezone
+from django.contrib import messages
+from app1.forms import ContactForm, NewsletterForm
 from app2.models import Post
+from app1.models import Contact
 
 def home_view(request):
     posts = Post.objects.filter(
@@ -17,12 +20,38 @@ def about_view(request):
     return render(request, 'app1/about.html')
 
 def contact_view(request):
-    return render(request, "app1/contact.html")
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            # c = form.save(commit=False)
+            # c.name = 'unknown'
+            # c.save()
+
+            messages.add_message(request, messages.SUCCESS, 'Commit Successfully!')
+        else:
+            messages.add_message(request, messages.ERROR, 'Invalid Contact!')
+
+    form = ContactForm()
+
+    return render(request, "app1/contact.html", {'form': form})
 
 def elements_view(request):
     return render(request, "app1/elements.html")
 
+def newsletter_view(request):
+    if request.method == 'POST':
+        form = NewsletterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+    
+    else:
+        return HttpResponseRedirect('/')
+    
+    # we dont render anything here !!!
+
 def test(request):
-#     posts = Post.objects.all()
-#     context = {'posts': posts}
+
     return render(request, 'app1/test.html')

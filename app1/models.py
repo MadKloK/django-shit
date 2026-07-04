@@ -12,3 +12,9 @@ class Contact(models.Model):
 
     def __str__(self):
         return f'{self.id}. {self.subject}'
+
+class Newsletter(models.Model):
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.email.split('@')[0]

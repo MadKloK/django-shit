@@ -8,11 +8,10 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- {% get_posts as posts %}
-    {% for post in posts %}
-        <p>{{ post.content|snippet:100 }}</p>
-    {% endfor %} -->
-
-    {% popular_posts %}
+    <form action="{% url 'app1:test' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>submit</button>
+    </form>
 </body>
 </html>
