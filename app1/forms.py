@@ -1,5 +1,4 @@
 from django.forms import Form, ModelForm
-from django.core.mail import EmailMessage
 from app1.models import Contact, Newsletter
 
 class ContactForm(ModelForm):

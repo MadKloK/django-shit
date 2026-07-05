@@ -29,9 +29,9 @@ def contact_view(request):
             # c.name = 'unknown'
             # c.save()
 
-            messages.add_message(request, messages.SUCCESS, 'Commit Successfully!')
+            messages.success(request, 'Commit Successfully!')
         else:
-            messages.add_message(request, messages.ERROR, 'Invalid Contact!')
+            messages.error(request, 'Invalid Contact!')
 
     form = ContactForm()
 
