@@ -18,6 +18,9 @@ def blog_view(request, **kwargs):
     if kwargs.get('author_username'):
         posts = posts.filter(author__username=kwargs['author_username'])
 
+    if kwargs.get('tag_slug'):
+        posts = posts.filter(tags__slug=kwargs['tag_slug'])
+
     paginator = Paginator(posts, 5)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number) # no need for try except, get_page() handles some cases itself

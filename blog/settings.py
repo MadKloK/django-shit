@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'multi_captcha_admin',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,12 +44,25 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
 
     'django_extensions',
+    'debug_toolbar',
+    'taggit',
+    'django_summernote',
+    'captcha',
 
     'app1.apps.App1Config',
     'app2.apps.App2Config',
 ]
 
+# sites framework
 SITE_ID = 1
+
+# taggit
+TAGGIT_CASE_INSENSITIVE = True
+
+# multi captcha admin
+MULTI_CAPTCHA_ADMIN = {
+    'engine': 'simple-captcha',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,6 +72,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'blog.urls'
@@ -139,3 +156,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# debug toolbar
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

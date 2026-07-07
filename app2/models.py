@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+from taggit.managers import TaggableManager
+
 # Create your models here.
 
 class Category(models.Model):
@@ -16,7 +18,7 @@ class Post(models.Model):
     content = models.TextField()
     image = models.ImageField(upload_to='app2/', default='app2/default.jpg')
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True) # foreign key created indexes by default ! + id creates it too
-    # tag
+    tags = TaggableManager()
     category = models.ManyToManyField(Category)
     views_count = models.IntegerField(default=0)
     status = models.BooleanField(default=False)
@@ -25,7 +27,7 @@ class Post(models.Model):
     published_at = models.DateTimeField(null=True, db_index=True)
 
     class Meta:
-        ordering = ['created_at']
+        ordering = ['-created_at']
         # verbose_name = 'pppost'
         # verbose_name_plural = 'postssss'
 
@@ -38,3 +40,20 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('app2:single', kwargs={'pid': self.id})
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=150)
+    message = models.TextField()
+    approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.post.name} -> {self.subject}'
