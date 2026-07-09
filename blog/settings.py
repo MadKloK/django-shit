@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
     'app1.apps.App1Config',
     'app2.apps.App2Config',
+    'accounts.apps.AccountsConfig'
 ]
 
 # sites framework
