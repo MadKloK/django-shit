@@ -1,9 +1,10 @@
 from django.forms import Form, ModelForm
-from django.core.mail import EmailMessage
+from captcha.fields import CaptchaField
 from app1.models import Contact, Newsletter
 
 class ContactForm(ModelForm):
-    
+    captcha = CaptchaField()
+
     class Meta:
         model = Contact
         fields = '__all__'

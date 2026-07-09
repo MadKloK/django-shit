@@ -1,8 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import F, Q
 from django.core.paginator import Paginator #, EmptyPage, PageNotAnInteger
 from django.utils import timezone
-from app2.models import Post
+from django.contrib import messages
+
+from app2.models import Post, Comment
+from app2.forms import CommentForm
 
 # Create your views here.
 
@@ -18,6 +21,9 @@ def blog_view(request, **kwargs):
     if kwargs.get('author_username'):
         posts = posts.filter(author__username=kwargs['author_username'])
 
+    if kwargs.get('tag_slug'):
+        posts = posts.filter(tags__slug=kwargs['tag_slug'])
+
     paginator = Paginator(posts, 5)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number) # no need for try except, get_page() handles some cases itself
@@ -28,6 +34,7 @@ def blog_view(request, **kwargs):
 def blog_single(request, pid):
     posts = Post.objects.filter(published_at__lte=timezone.now(), status=True)
     post = get_object_or_404(posts, id=pid)
+    comments = Comment.objects.filter(post=post.id, approved=True)
 
     post.views_count = F('views_count') + 1
     post.save(update_fields=['views_count'])
@@ -36,11 +43,28 @@ def blog_single(request, pid):
     previous_post = posts.filter(published_at__lt=post.published_at).order_by('-published_at').first()
     next_post = posts.filter(published_at__gt=post.published_at).order_by('published_at').first()
 
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            c = form.save(commit=False)
+            c.post = post
+            c.save()
+
+            messages.success(request, 'Comment Posted Successfully!')
+            return redirect('app2:single', pid=post.id)
+        else:
+            messages.error(request, 'Invalid input. Please check your fields.')
+    else:
+        form = CommentForm()
+
     context = {
         'post': post,
         'previous_post': previous_post,
-        'next_post': next_post
-        }
+        'next_post': next_post,
+        'comments': comments,
+        'form': form,
+    }
 
     return render(request, "app2/blog-single.html", context)
 

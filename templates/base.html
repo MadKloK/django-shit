@@ -34,7 +34,23 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <body>
+
+    {% if messages %}
+        {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: "{% if message.tags == 'success' %}success{% elif message.tags == 'error' %}error{% elif message.tags == 'warning' %}warning{% else %}info{% endif %}",
+                title: "{{ message }}",
+                timer: 3000,
+                showConfirmButton: false
+            });
+        </script>
+        {% endfor %}
+    {% endif %}
+
     <header id="header">
         <div class="header-top">
             <div class="container">
