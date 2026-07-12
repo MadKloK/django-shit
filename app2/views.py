@@ -3,6 +3,7 @@ from django.db.models import F, Q
 from django.core.paginator import Paginator #, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from app2.models import Post, Comment
 from app2.forms import CommentForm
@@ -31,9 +32,14 @@ def blog_view(request, **kwargs):
     context = {'page': page} # just passing the page is enough, no need for posts
     return render(request, "app2/blog-home.html", context)
 
+@login_required()
 def blog_single(request, pid):
     posts = Post.objects.filter(published_at__lte=timezone.now(), status=True)
     post = get_object_or_404(posts, id=pid)
+
+    if post.login_required and not request.user.is_authenticated:
+        return redirect('accounts:login')
+
     comments = Comment.objects.filter(post=post.id, approved=True)
 
     post.views_count = F('views_count') + 1
@@ -49,6 +55,11 @@ def blog_single(request, pid):
         if form.is_valid():
             c = form.save(commit=False)
             c.post = post
+            
+            if request.user.is_authenticated:
+                c.name = request.user.first_name
+                c.email = request.user.email
+
             c.save()
 
             messages.success(request, 'Comment Posted Successfully!')
