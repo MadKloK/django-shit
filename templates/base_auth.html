@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="text-center">
+
+    {% if messages %}
+        {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: "{% if message.tags == 'success' %}success{% elif message.tags == 'error' %}error{% elif message.tags == 'warning' %}warning{% else %}info{% endif %}",
+                title: "{{ message }}",
+                timer: 3000,
+                showConfirmButton: false
+            });
+        </script>
+        {% endfor %}
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+</body>
+</html>
