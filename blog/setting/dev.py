@@ -4,7 +4,7 @@ from blog.settings import *
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@6r^fze%ln43hwd0t!3(4$9(v(k5(+24ru6iky1^!-lg74q5-4'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
