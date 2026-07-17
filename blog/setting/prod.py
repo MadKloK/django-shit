@@ -45,4 +45,11 @@ SECURE_SSL_REDIRECT = os.environ.get(
 SESSION_COOKIE_SECURE=True
 CSRF_COOKIE_SECURE=True
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
