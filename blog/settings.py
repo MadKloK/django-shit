@@ -22,6 +22,8 @@ SECRET_KEY = os.environ.get(
     "django-insecure-dev-only-key"
 )
 
+DEBUG = False
+
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
@@ -125,6 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = 'media/'
 
 # Default primary key field type
