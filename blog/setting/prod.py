@@ -34,7 +34,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 CSRF_TRUSTED_ORIGINS=[
-    "django-shit-production.up.railway.app"
+    "https://django-shit-production.up.railway.app"
 ]
 
 SECURE_SSL_REDIRECT = os.environ.get(
