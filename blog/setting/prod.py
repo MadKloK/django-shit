@@ -11,8 +11,7 @@ import os
 DEBUG = False
 
 ALLOWED_HOSTS=[
-    "your-domain.com",
-    "your-project.up.railway.app"
+    ".railway.app",
 ]
 
 # sites framework
@@ -38,7 +37,11 @@ CSRF_TRUSTED_ORIGINS=[
     "https://your-project.up.railway.app"
 ]
 
-SECURE_SSL_REDIRECT=True
+SECURE_SSL_REDIRECT = os.environ.get(
+    "SECURE_SSL_REDIRECT",
+    "False"
+) == "True"
+
 SESSION_COOKIE_SECURE=True
 CSRF_COOKIE_SECURE=True
 
