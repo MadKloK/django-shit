@@ -24,7 +24,13 @@ DATABASES = {
     }
 }
 
+INSTALLED_APPS += [
+    'debug_toolbar',
+]
 
+MIDDLEWARE += [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+]
 
 STATICFILES_DIRS = [
     BASE_DIR / "assets",

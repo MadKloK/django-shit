@@ -1,15 +1,17 @@
 from blog.settings import *
+import dj_database_url
+import os
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@6r^fze%ln43hwd0t!3(4$9(v(k5(+24ru6iky1^!-lg74q5-4'
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # sites framework
 SITE_ID = 1
@@ -18,26 +20,14 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.config(
+        conn_max_age=600,
+        default="sqlite:///db.sqlite3"
+    )
 }
-
-
-
-STATICFILES_DIRS = [
-    BASE_DIR / "assets",
-]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_ROOT = BASE_DIR / 'media'
-
-
-# debug toolbar
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
