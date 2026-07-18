@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Travel | Coming Soon</title>
+
+    <meta name="description"
+          content="Travel website is currently under development and will be available soon.">
+
+    <meta name="robots"
+          content="noindex, nofollow">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="{% static 'img/fav.png' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #04091e;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .coming-soon {
+            max-width: 700px;
+            padding: 30px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #ddd;
+        }
+
+        .badge-launch {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 25px;
+            background: #f8b600;
+            color: black;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="coming-soon">
+        <h1>Coming Soon</h1>
+
+        <p>
+            Our website is currently under development.
+            We are working hard to launch it as soon as possible.
+        </p>
+
+        <div class="badge-launch">
+            Available Soon
+        </div>
+    </div>
+
+</body>
+
+</html>

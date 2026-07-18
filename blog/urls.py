@@ -15,14 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+from django.views.generic import TemplateView
 
 # from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
+    re_path(
+        r"^.*$",
+        TemplateView.as_view(template_name="coming-soon.html"),
+    ),
+    
     path('admin/', admin.site.urls),
     path('', include('app1.urls')),
     path('blog/', include('app2.urls')),
@@ -48,6 +54,7 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
