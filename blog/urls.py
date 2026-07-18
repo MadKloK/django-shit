@@ -24,11 +24,8 @@ from django.views.generic import TemplateView
 # from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
-    re_path(
-        r"^.*$",
-        TemplateView.as_view(template_name="coming-soon.html"),
-    ),
-    
+    # re_path(r"^.*$", TemplateView.as_view(template_name="coming-soon.html"),),
+
     path('admin/', admin.site.urls),
     path('', include('app1.urls')),
     path('blog/', include('app2.urls')),
