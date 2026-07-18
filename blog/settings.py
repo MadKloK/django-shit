@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
 
+    'compressor',
     'django_extensions',
     'taggit',
     'django_summernote',
@@ -48,6 +49,16 @@ INSTALLED_APPS = [
     'app2.apps.App2Config',
     'accounts.apps.AccountsConfig'
 ]
+
+# compressor
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
+
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
 
 # taggit
 TAGGIT_CASE_INSENSITIVE = True
